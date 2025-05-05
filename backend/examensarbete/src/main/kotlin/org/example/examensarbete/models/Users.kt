@@ -11,5 +11,11 @@ data class Users (
     val username: String,
     @Column(unique = true)
     val email: String,
-    val password: String
+    val password: String,
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
+    val lifts: List<Lift>? = null
+)
+
+data class UserDto(
+    val username: String,
 )
