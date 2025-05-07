@@ -19,5 +19,5 @@ data class MuscleGroup(
 
 data class MuscleGroupDto(
     val name: String,
-    val exercises: List<ExerciseDto>
+    val exercises: List<ExerciseDTO>
 )

@@ -20,6 +20,7 @@ data class Exercise(
     val creator: Users? = null
 )
 
-data class ExerciseDto(
+data class ExerciseDTO(
     val name: String,
+    val muscleGroupId: UUID
 )

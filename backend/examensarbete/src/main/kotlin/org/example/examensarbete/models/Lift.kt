@@ -19,7 +19,7 @@ data class Lift(
 
 data class LiftDto(
     val user: UserDto,
-    val exercise: ExerciseDto,
+    val exercise: ExerciseDTO,
     val weight: Double,
     val reps: Int,
 )
