@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.ge-primary-color {
+  color: #192428;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.ge-white-color {
+  color: #F4F7FB;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.ge-accent-color {
+  color: #EA7F21;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.ge-primary-bg-color {
+  background-color: #192428;
+}
+
+.ge-white-bg-color {
+  background-color: #F4F7FB;
+}
+
+.ge-accent-bg-color {
+  background-color: #EA7F21;
+}
+
+.ge-border-focus {
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+.ge-border-focus:focus {
+  border-color: #EA7F21;
+  outline: none;
+}
+
+.ge-accent-hover:hover {
+  transition-duration: 0.2s;
+  background-color: #EA7F21;
 }
