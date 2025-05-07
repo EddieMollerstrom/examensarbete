@@ -20,17 +20,14 @@ class JwtAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val header = request.getHeader("Authorization")
-        val token = if (header != null && header.startsWith("Bearer ")) {
-            header.substring(7)
-        } else null
+        val cookies = request.cookies ?: emptyArray()
+        val tokenCookie = cookies.find { it.name == "token" }
 
-        val email = token?.let { jwtUtil.validateToken(it) }
+        if (tokenCookie != null) {
+            val username = jwtUtil.validateToken(tokenCookie.value)
 
-        if (email != null && SecurityContextHolder.getContext().authentication == null) {
-            val user = usersRepository.findByEmail(email)
-            if (user != null) {
-                val auth = UsernamePasswordAuthenticationToken(email, null, listOf())
+            if (username != null) {
+                val auth = UsernamePasswordAuthenticationToken(username, null, emptyList())
                 SecurityContextHolder.getContext().authentication = auth
             }
         }
