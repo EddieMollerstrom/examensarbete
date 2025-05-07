@@ -1,3 +1,4 @@
+'use client'
 import InputField from "@/app/_components/input";
 import {useState} from "react";
 
@@ -32,7 +33,7 @@ export default function SignUpForm() {
                     <InputField customHintText={"Username"}/>
                     <InputField customHintText={"Email"}/>
                     <InputField customHintText={"Password"} isObscure={true}/>
-                    <button type={"submit"} className={"ge-primary-bg-color ge-white-color rounded-md py-3 hover:cursor-pointer ge-accent-hover"}>Sign up</button>
+                    <button onClick={handleSubmit} className={"ge-primary-bg-color ge-white-color rounded-md py-3 hover:cursor-pointer ge-accent-hover"}>Sign up</button>
 
                     <div>
                         <p className={"ge-primary-color"}>Already have an account?</p>

@@ -37,7 +37,7 @@ class AuthController(
         val cookie = ResponseCookie.from("token", token)
             .httpOnly(true)
             .secure(false)
-            .sameSite("Strict")
+            .sameSite("Lax")
             .path("/")
             .maxAge(10 * 60 * 60) // 10 timmar
             .build()
@@ -52,7 +52,7 @@ class AuthController(
         val cookie = ResponseCookie.from("token", "")
             .httpOnly(true)
             .secure(false)
-            .sameSite("Strict")
+            .sameSite("Lax")
             .path("/")
             .maxAge(0)
             .build()
