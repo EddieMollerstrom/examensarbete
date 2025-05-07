@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import LogSet from './logset';
+import Set from './set';
+import MuscleGroups from "@/app/gymdeluxe/musclegroups";
 
-// Denna komponent representerar din huvudsida för gymdeluxe
 const GymDeluxePage = () => {
     const [loading, setLoading] = useState(true);
     const [gymData, setGymData] = useState(null);
     const [error, setError] = useState(null);
     const router = useRouter();
 
-    // Hämta användarens gym-relaterade data
     useEffect(() => {
         const fetchGymData = async () => {
             try {
@@ -74,28 +75,13 @@ const GymDeluxePage = () => {
     }
 
     // Huvudinnehåll - gymdeluxe-sidan
-    return (
-        <div className="container mx-auto px-4 py-8">
-            <header className="bg-gradient-to-r from-purple-500 to-indigo-600 p-6 rounded-lg shadow-lg mb-8">
-                <h1 className="text-3xl font-bold text-white">Välkommen till GymDeluxe</h1>
-                <p className="text-white opacity-90 mt-2">Din personliga träningsplattform</p>
-            </header>
-
-
-            {/* Utloggningsknapp */}
-            <div className="mt-8 text-center">
-                <button
-                    onClick={async () => {
-                        await fetch('/api/auth/logout', { method: 'POST' });
-                        router.push('/login');
-                    }}
-                    className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded transition-colors"
-                >
-                    Logga ut
-                </button>
-            </div>
-        </div>
-    );
+    return <>
+        <MuscleGroups />
+        {/*<div>
+            <LogSet/>
+            <Set/>
+        </div>*/}
+    </>
 };
 
 export default GymDeluxePage;
