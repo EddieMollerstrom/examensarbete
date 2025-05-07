@@ -2,6 +2,7 @@ package org.example.examensarbete.controller
 
 import org.example.examensarbete.models.Exercise
 import org.example.examensarbete.models.ExerciseDTO
+import org.example.examensarbete.models.MuscleGroup
 import org.example.examensarbete.service.ExerciseService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -20,6 +21,6 @@ class ExerciseController (val exerciseService: ExerciseService) {
     }
 
     @GetMapping
-    fun getExercises(@RequestParam(required = false) userId: String?): List<Exercise> =
-        exerciseService.getExercises(userId)
+    fun getExercises(@RequestParam(required = false) userId: String?, @RequestParam(required = true) muscleGroupId: MuscleGroup): List<Exercise> =
+        exerciseService.getExercises(userId, muscleGroupId)
 }

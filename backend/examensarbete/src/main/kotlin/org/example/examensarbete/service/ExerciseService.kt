@@ -2,6 +2,7 @@ package org.example.examensarbete.service
 
 import org.example.examensarbete.models.Exercise
 import org.example.examensarbete.models.ExerciseDTO
+import org.example.examensarbete.models.MuscleGroup
 import org.example.examensarbete.repository.ExerciseRepository
 import org.example.examensarbete.repository.MuscleGroupRepository
 import org.example.examensarbete.repository.UsersRepository
@@ -30,16 +31,16 @@ class ExerciseService (val exerciseRepository: ExerciseRepository, val usersRepo
         return exerciseRepository.save(exercise)
     }
 
-    fun getExercises(userId: String?): List<Exercise> {
+    fun getExercises(userId: String?, muscleGroupId: MuscleGroup): List<Exercise> {
         return if (userId != null) {
             try {
                 val userUUID = UUID.fromString(userId)
-                exerciseRepository.findByCreatorOrDefault(userUUID)
+                exerciseRepository.findByCreatorOrDefault(userUUID, muscleGroupId)
             } catch (e: IllegalArgumentException) {
-                exerciseRepository.findDefaultExercises()
+                exerciseRepository.findDefaultExercises(muscleGroupId)
             }
         } else {
-            exerciseRepository.findDefaultExercises()
+            exerciseRepository.findDefaultExercises(muscleGroupId)
         }
     }
 }
