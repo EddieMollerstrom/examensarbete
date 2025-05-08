@@ -11,16 +11,10 @@ class UsersService (
     private val usersRepository: UsersRepository,
     private val passwordEncoder: PasswordEncoder
 ) {
-    /*fun getByEmail(email: String): Users? {
+    fun getUserIdByEmail(email: String): String {
         val user = usersRepository.findByEmail(email)
-
-        if (user != null) {
-            return user
-        }
-
-        return null
-    }*/
-    fun getAllUsers(): List<Users> = usersRepository.findAll()
+        return user.id.toString()
+    }
 
     fun createUser(user: Users): UserDto {
         val hashedPassword = passwordEncoder.encode(user.password)

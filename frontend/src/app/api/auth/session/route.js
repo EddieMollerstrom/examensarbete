@@ -22,7 +22,14 @@ export async function GET(request) {
             throw new Error('Invalid session');
         }
 
-        return new Response(JSON.stringify({ authenticated: true }), {
+        const userData = await res.json();
+
+        return new Response(JSON.stringify({
+            authenticated: true,
+            email: userData.email,
+            userId: userData.userId,  // Inkludera userId här!
+            username: userData.username || userData.email, // Använd username om det finns, annars email
+        }), {
             status: 200,
             headers: {
                 'Content-Type': 'application/json',
