@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import AddMuscleGroupBtn from "@/app/gymdeluxe/addMuscleGroupBtn";
+import LiftModal from "@/app/gymdeluxe/liftmodal";
 
 export default function MuscleGroups() {
     const [muscleGroups, setMuscleGroups] = useState([]);
@@ -53,7 +54,6 @@ export default function MuscleGroups() {
                 const data = await res.json();
                 setMuscleGroups(data);
 
-                // Sätt första muskelgruppen som vald som standard
                 if (data.length > 0 && !selectedGroup) {
                     setSelectedGroup(data[0]);
                 }
@@ -117,11 +117,13 @@ export default function MuscleGroups() {
                 <div className="flex flex-col gap-3">
                     {exercises.map((exercise) => (
                         <div key={exercise.id} className="p-4 ge-white-bg-color rounded-lg flex justify-center">
-                            <h3 className="font-medium">{exercise.name}</h3>
+                            <LiftModal name={exercise.name} />
                         </div>
                     ))}
                 </div>
-                <AddMuscleGroupBtn />
+                {selectedGroup && (
+                    <AddMuscleGroupBtn muscleGroupId={selectedGroup.id} />
+                )}
                 {exercises.length === 0 && selectedGroup && (
                     <p>Inga övningar hittades för denna muskelgrupp.</p>
                 )}
