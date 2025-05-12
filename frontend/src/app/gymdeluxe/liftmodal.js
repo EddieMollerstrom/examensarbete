@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import InputField from "@/app/_components/input";
 import ShowLift from "@/app/gymdeluxe/showLift";
+import LineChartComponent from "@/app/gymdeluxe/chart";
 
 export default function LiftModal({ name, exerciseId }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -86,7 +87,7 @@ export default function LiftModal({ name, exerciseId }) {
             throw error;
         }
     }
-    
+
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
         return new Date(dateString).toLocaleDateString(undefined, options);
@@ -111,6 +112,13 @@ export default function LiftModal({ name, exerciseId }) {
                         onClick={(e) => e.stopPropagation()}
                     >
                         <h2 className="text-xl font-semibold mb-4 text-center">{name}</h2>
+
+                        {recentLifts.length > 0 && (
+                            <div className="mt-6">
+                                <h3 className="text-md font-medium mb-2 text-center">Viktprogression</h3>
+                                <LineChartComponent recentLifts={recentLifts} exerciseName={name} />
+                            </div>
+                        )}
 
                         {error && (
                             <div className="mb-4 p-2 bg-red-100 border border-red-400 text-red-700 rounded text-center">
