@@ -117,7 +117,7 @@ export default function MuscleGroups() {
                 <div className="flex flex-col gap-3">
                     {exercises.map((exercise) => (
                         <div key={exercise.id} className="p-4 ge-white-bg-color rounded-lg flex justify-center">
-                            <LiftModal name={exercise.name} />
+                            <LiftModal name={exercise.name} exerciseId={exercise.id}/>
                         </div>
                     ))}
                 </div>

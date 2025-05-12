@@ -1,9 +1,20 @@
-export async function POST(request) {
+export async function GET(request) {
+    const searchParams = request.nextUrl.searchParams;
+    const exerciseId = searchParams.get('exerciseId');
     const token = request.cookies.get('token')?.value;
 
     if (!token) {
         return new Response(JSON.stringify({ error: 'Unauthorized' }), {
             status: 401,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
+
+    if (!exerciseId) {
+        return new Response(JSON.stringify({ error: 'Missing exerciseId parameter' }), {
+            status: 400,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -25,40 +36,31 @@ export async function POST(request) {
         const userData = await userRes.json();
         const userId = userData.userId;
 
-        const liftData = await request.json();
-
-        const createLiftRes = await fetch(`http://localhost:8080/lift/${userId}`, {
-            method: 'POST',
+        const liftsRes = await fetch(`http://localhost:8080/lift/user/${userId}/exercise/${exerciseId}`, {
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json',
                 'Cookie': `token=${token}`
-            },
-            body: JSON.stringify({
-                exerciseId: liftData.exerciseId,
-                weight: liftData.weight,
-                reps: liftData.reps
-            })
+            }
         });
 
-        if (!createLiftRes.ok) {
-            const errorData = await createLiftRes.json().catch(() => ({}));
-            throw new Error(`Failed to create lift: ${errorData.message || createLiftRes.statusText}`);
+        if (!liftsRes.ok) {
+            throw new Error('Failed to fetch lifts');
         }
 
-        const newLift = await createLiftRes.json();
+        const lifts = await liftsRes.json();
 
-        return new Response(JSON.stringify(newLift), {
-            status: 201,
+        lifts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        return new Response(JSON.stringify(lifts), {
+            status: 200,
             headers: {
                 'Content-Type': 'application/json',
             },
         });
     } catch (error) {
-        console.error('Error creating lift:', error);
-
+        console.error('Error fetching user lifts:', error);
         return new Response(JSON.stringify({
-            error: 'Failed to create lift',
+            error: 'Failed to fetch user lifts',
             details: error.message
         }), {
             status: 500,

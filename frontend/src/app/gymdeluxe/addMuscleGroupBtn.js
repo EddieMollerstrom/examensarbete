@@ -48,14 +48,14 @@ export default function AddMuscleGroupBtn({ muscleGroupId }) {
     return (
         <>
             <button
-                className="ge-accent-bg-color ge-white-color hover:cursor-pointer"
+                className="my-2 px-4 py-2 ge-accent-bg-color rounded-md text-white hover:cursor-pointer"
                 onClick={() => setIsModalOpen(true)}
             >
                 Add Exercise
             </button>
 
             {isModalOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div className="fixed inset-0 ge-primary-bg-color bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-4 rounded shadow-md w-96">
                         <h2 className="text-lg font-semibold mb-4">Add a Muscle Group</h2>
                         <InputField

@@ -1,10 +1,11 @@
 package org.example.examensarbete.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import java.util.UUID
 
 @Entity
-data class Users (
+data class Users(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: UUID? = null,
@@ -12,8 +13,10 @@ data class Users (
     @Column(unique = true)
     val email: String,
     val password: String,
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
-    val lifts: List<Lift>? = null
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    val lifts: MutableList<Lift> = mutableListOf()
 )
 
 data class UserDto(

@@ -21,6 +21,11 @@ data class Exercise(
 )
 
 data class ExerciseDTO(
+    val id: UUID,
     val name: String,
     val muscleGroupId: UUID
+)
+
+data class ExercisesDTOId(
+    val exerciseId: UUID
 )
